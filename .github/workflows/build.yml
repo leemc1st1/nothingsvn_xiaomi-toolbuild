@@ -6,10 +6,19 @@ on:
       input_url:
         description: 'URL of the ROM to build'
         required: true
+      builder_name:
+        description: 'Tên người build'
+        required: false
+      builder_id:
+        description: 'ID người build'
+        required: false
       
 jobs:
   Initialize:
     runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
     steps:
       - name: Clean All Unused file,application
         run: |
@@ -46,6 +55,10 @@ jobs:
       - name: Install Stuff
         run: |
           sudo bash setup.sh
+
+      - name: Start Notify
+        run: |
+          python notify.py start "${{ github.repository }}" "${{ inputs.input_url }}" "xiaomi" "${{ inputs.builder_name }}" "${{ inputs.builder_id }}"
         
       - name: Giving permission
         run: |
@@ -55,6 +68,7 @@ jobs:
         env:
           INPUT_URL: ${{ inputs.input_url }}
         run: |
+          python notify.py build "${{ github.repository }}" "${{ inputs.input_url }}" "xiaomi" "${{ inputs.builder_name }}" "${{ inputs.builder_id }}"
           sudo bash build.sh "$INPUT_URL"
 
       - name: Pack ROM...
@@ -67,10 +81,15 @@ jobs:
           
       - name: Upload ROM...
         run: |
+          python notify.py upload "${{ github.repository }}" "${{ inputs.input_url }}" "xiaomi" "${{ inputs.builder_name }}" "${{ inputs.builder_id }}"
           sudo -E bash uploadROM.sh
       
-      - name: Update Database and Notificaton to Telegram
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TG_TOKEN }}
+      - name: Success Notification
+        if: success()
         run: |
-          
+          python notify.py success "${{ github.repository }}" "${{ inputs.input_url }}" "xiaomi" "${{ inputs.builder_name }}" "${{ inputs.builder_id }}"
+
+      - name: Failure Notification
+        if: failure()
+        run: |
+          python notify.py fail "${{ github.repository }}" "${{ inputs.input_url }}" "xiaomi" "${{ inputs.builder_name }}" "${{ inputs.builder_id }}"
