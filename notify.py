@@ -36,9 +36,15 @@ def send_notification(status, repo_name, rom_link, channel_id, bot_token, msg_id
     if os.path.exists("bin/ddevice/device_code.txt"):
         with open("bin/ddevice/device_code.txt", "r", encoding="utf-8") as f:
             codename = f.read().strip()
+    elif os.path.exists("bin/ddevice/device_model.txt"):
+        with open("bin/ddevice/device_model.txt", "r", encoding="utf-8") as f:
+            codename = f.read().strip()
             
     if os.path.exists("bin/ddevice/base_rom_code.txt"):
         with open("bin/ddevice/base_rom_code.txt", "r", encoding="utf-8") as f:
+            version_rom = f.read().strip()
+    elif os.path.exists("bin/ddevice/base_build_id.txt"):
+        with open("bin/ddevice/base_build_id.txt", "r", encoding="utf-8") as f:
             version_rom = f.read().strip()
             
     if os.path.exists("Version"):
