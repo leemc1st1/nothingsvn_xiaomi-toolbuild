@@ -11,6 +11,12 @@ if [[ $AndroidVER == "13" ]];then
     bash $WORK_DIR/bin/package/NOTIFICATION_FIX/A13/RUN.SH
 elif [[ $AndroidVER == "14" ]];then
     bash $WORK_DIR/bin/package/NOTIFICATION_FIX/A14/RUN.SH
+elif [[ $AndroidVER == "15" ]];then
+    bash $WORK_DIR/bin/package/NOTIFICATION_FIX/A15/SystemUI.sh
+    bash $WORK_DIR/bin/package/NOTIFICATION_FIX/A15/PowerKeeper.sh
+elif [[ $AndroidVER == "16" ]];then
+    bash $WORK_DIR/bin/package/NOTIFICATION_FIX/A16/PowerKeeper.sh
+    bash $WORK_DIR/bin/package/NOTIFICATION_FIX/A16/SystemUI.sh
 fi
 
 fi
