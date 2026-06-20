@@ -40,15 +40,11 @@ cleanStuff() {
 if [[ $regionTYPE == *"Global"* ]]; then
 
 mods "Apply MIUI Dialer to Global ROM..."
-cleanStuff
-
 if [[ -n "$existXiaomiTelephonyService" ]];then
-    mods "MIUI Service found. Deleting..."
-    echo "$existXiaomiTelephonyService" | while IFS= read -r dir; do
-        rm -rf "$dir"
-    done
+    mods "MIUI Service found.Skipping...."
 else
     mods "MIUI Service not found. Continue..."
+    cleanStuff
 fi
 
 if [[ $androidVER == "13" ]];then
