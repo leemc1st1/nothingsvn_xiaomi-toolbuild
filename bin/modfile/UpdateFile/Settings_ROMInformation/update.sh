@@ -40,7 +40,6 @@ mods "Add ROM Information To MIUI"
   rm -rf $WORK_DIR/apk_temp
   mods "Adding MIUI Information Done!"
 else
-
 mods "Add ROM Information To HyperOS"
   mkdir -p $WORK_DIR/apk_temp
   isSettingsDIR=$(find "$MAIN_FOLDER" -type d -name "Settings")
