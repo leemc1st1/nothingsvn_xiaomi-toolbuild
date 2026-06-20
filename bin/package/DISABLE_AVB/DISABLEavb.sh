@@ -1,3 +1,4 @@
+work_dir=$(pwd)
 source $work_dir/functions.sh
 device_code=$(cat $work_dir/bin/ddevice/device_f.txt)
 
