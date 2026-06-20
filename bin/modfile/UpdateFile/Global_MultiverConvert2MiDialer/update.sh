@@ -41,10 +41,11 @@ if [[ $regionTYPE == *"Global"* ]]; then
 
 mods "Apply MIUI Dialer to Global ROM..."
 if [[ -n "$existXiaomiTelephonyService" ]];then
-    mods "MIUI Service found.Skipping...."
-else
-    mods "MIUI Service not found. Continue..."
+    mods "MIUI Service found. Cleaning..."
     cleanStuff
+else
+    mods "MIUI Dialer already applied.Remove..."
+    existXiaomiTelephonyService
 fi
 
 if [[ $androidVER == "13" ]];then
